@@ -1,0 +1,683 @@
+/* **************************
+Global Styles
+************************** */
+:root {
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-headline: Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  /* colors */
+  --primary-color: #f3b808;
+  --secondary-color: #19631d;
+  --tertiary-color: #FFFFFF;
+  --light-grey: #d0d0d0;
+  --grey: #37474F;
+
+  /* sizes */
+  --font-base: 18px;
+  --small-font: 0.8em;
+  --large-font: 1.2em;
+}
+
+/* **************************
+Body Styles
+************************** */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+}
+/* ============================
+   Navigation Styles
+============================ */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2E7D32; /* Green */
+  padding: 1rem 2rem;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo a {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8em;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.logo .highlight {
+  color: #FFC107; /* Yellow */
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 1em;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #FFC107;
+}
+
+#authLinks {
+  color: #FFFFFF;
+  font-size: 1em;
+}
+
+
+/* ============================
+   Footer Styles
+============================ */
+footer {
+  background-color: #37474F; /* Gray */
+  color: #FFFFFF;
+  text-align: center;
+  padding: 1rem 2rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+
+
+/* ============================
+   Hero Section Styles
+============================ */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  background-color: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
+}
+
+.hero img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.mission {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 700px;
+  padding: 1rem 2rem;
+  background-color: rgba(55, 71, 79, 0.85);
+  color: #d0d0d0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.mission p {
+  margin: 0;
+}
+
+/* Highlighted text */
+.highlight {
+  color: #FFC107; /* Yellow */
+  font-weight: bold;
+}
+
+/* ============================
+   Index Planner Button
+============================ */
+.cta {
+  text-align: center;
+  margin: 3rem auto;
+}
+
+.cta h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  color: #2E7D32;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #FFC107;
+  color: #37474F;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #e0a800;
+}
+
+/* ============================
+   Features Styles
+============================ */
+.features {
+  max-width: 700px;
+  margin: 2rem auto;
+  font-family: 'Roboto', sans-serif;
+  color: #37474F;
+}
+
+.features h3 {
+  text-align: justify;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+
+}
+
+.features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.features li {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  text-align: justify;
+}
+
+
+
+/* ============================
+   Testimonials Design
+============================ */
+.testimonials {
+  background-color: #f9f9f9;
+  padding: 3rem 2rem;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.testimonials h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem;
+  color: #2E7D32;
+  margin-bottom: 2rem;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.testimonial {
+  background-color: #FFFFFF;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
+  color: #37474F;
+}
+
+.testimonial p {
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.testimonial span {
+  font-weight: bold;
+  color: #2E7D32;
+}
+
+
+/* ============================
+   Login Style
+============================ */
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  font-family: 'Roboto', sans-serif;
+}
+
+.auth-page h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  color: #2E7D32;
+  margin-bottom: 1.5rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #37474F;
+}
+
+.auth-form input {
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.btn {
+  padding: 0.75rem;
+  background-color: #FFC107;
+  color: #37474F;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #e0a800;
+}
+
+.auth-page p {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #37474F;
+}
+
+.auth-page a {
+  color: #2E7D32;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-page a:hover {
+  text-decoration: underline;
+}
+
+
+
+/* ============================
+   Register Page Style
+============================ */
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  font-family: 'Roboto', sans-serif;
+}
+
+.auth-page .logo img {
+  width: 100px;
+  margin-bottom: 1rem;
+}
+
+.auth-page h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  color: #2E7D32; /* Green */
+  margin-bottom: 1.5rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #37474F; /* Gray */
+}
+
+.auth-form input {
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.auth-form input:focus {
+  border-color: #2E7D32;
+  outline: none;
+}
+
+.password-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: #37474F;
+}
+
+.btn {
+  padding: 0.75rem;
+  background-color: #FFC107; /* Yellow */
+  color: #37474F;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #e0a800;
+}
+
+.auth-page p {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #37474F;
+}
+
+.auth-page a {
+  color: #2E7D32;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-page a:hover {
+  text-decoration: underline;
+}
+
+/* ============================
+   Grocery Page Style
+============================ */
+.page-content {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  color: #37474F;
+}
+
+.page-content h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  color: #2E7D32; /* Green */
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.page-content p {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+/* Grocery container */
+.grocery-container {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  min-height: 200px;
+}
+
+/* Loading message */
+.loading {
+  text-align: center;
+  font-size: 1rem;
+  color: #888;
+  font-style: italic;
+}
+
+/* ============================
+   Planner Page Style
+============================ */
+.page-content {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  color: #37474F;
+}
+
+.page-content h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  color: #2E7D32; /* Green */
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.page-content p {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+/* Planner container */
+.planner-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  min-height: 300px;
+}
+
+/* Loading message */
+.loading {
+  text-align: center;
+  font-size: 1rem;
+  color: #888;
+  font-style: italic;
+}
+
+/* ============================
+   Recipes Page Style
+============================ */
+.page-content {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  color: #37474F;
+}
+
+.page-content h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  color: #2E7D32; /* Green */
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.page-content p {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+/* Recipes container */
+.recipes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  min-height: 300px;
+}
+
+/* Loading message */
+.loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1rem;
+  color: #888;
+  font-style: italic;
+}
+
+/* Recipe card (optional future styling) */
+.recipe-card {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+}
+
+
+
+
+
+
+
+/* ============================
+   Responsive Design
+============================ */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+
+  .hero {
+    padding: 1rem;
+  }
+
+  .mission {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+  footer {
+    font-size: 0.8rem;
+    padding: 1rem;
+  }
+  .page-content {
+    padding: 1rem;
+  }
+
+  .page-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .page-content p {
+    font-size: 1rem;
+  }
+
+  .grocery-container {
+    padding: 1rem;
+  }
+  .page-content {
+    padding: 1rem;
+  }
+
+  .page-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .page-content p {
+    font-size: 1rem;
+  }
+
+  .planner-container {
+    padding: 1.5rem;
+  }
+  .page-content {
+    padding: 1rem;
+  }
+
+  .page-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .page-content p {
+    font-size: 1rem;
+  }
+
+  .recipes-container {
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-form {
+    padding: 1.5rem;
+  }
+
+  .auth-page h1 {
+    font-size: 1.5rem;
+  }
+   
+  .auth-form {
+    padding: 1.5rem;
+  }
+
+  .auth-page h1 {
+    font-size: 1.5rem;
+  }
+
+  .auth-page .logo img {
+    width: 80px;
+  }
+   .mission {
+    bottom: 1rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}

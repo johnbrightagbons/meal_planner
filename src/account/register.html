@@ -1,39 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register | Blu Meal Planner</title>
-  <link rel="stylesheet" href="/src/css/styles.css">
-  <script type="module" src="/src/js/register.mjs"></script>
-</head>
-<body>
-  <!-- ================= Header ================= -->
-  <header id="main-header"></header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register | Blu Meal Planner</title>
+    <meta name="description" content="Create your Blu Meal Planner account to start organizing meals, tracking nutrition, and building grocery lists." />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/auth.mjs"></script>
+  </head>
+  <body>
+    <header id="main-header"></header>
 
-  <!-- ================= Main Content ================= -->
-  <main class="auth-container">
-    <h1>📝 Register</h1>
-    <form id="registerForm" class="auth-form">
-      <label>Full Name</label>
-      <input type="text" name="name" placeholder="Enter your name" required>
+    <main class="auth-page">
+      <!-- Branding -->
+      <div class="logo">
+        <img src="/public/images/logo.png" alt="Blu Meal Planner logo" />
+      </div>
 
-      <label>Email</label>
-      <input type="email" name="email" placeholder="Enter your email" required>
+      <h1>Register</h1>
 
-      <label>Password</label>
-      <input type="password" name="password" placeholder="Enter your password" required>
+      <!-- Registration Form -->
+      <form id="register-form" class="auth-form">
+        <label for="register-name">Name</label>
+        <input type="text" id="register-name" placeholder="Enter your full name" required />
 
-      <button type="submit" class="btn">Register</button>
-    </form>
+        <label for="register-email">Email</label>
+        <input type="email" id="register-email" placeholder="Enter your email" required />
 
-    <p class="switch-link">Already have an account? <a href="login.html">Login here</a></p>
-  </main>
+        <label for="register-password">Password</label>
+        <input type="password" id="register-password" placeholder="Create a password" required />
 
-  <!-- ================= Footer ================= -->
-  <footer id="main-footer"></footer>
+        <!-- Password Visibility Toggle -->
+        <div class="password-toggle">
+          <input type="checkbox" id="toggle-password" />
+          <label for="toggle-password">Show password</label>
+        </div>
 
- 
-  
-</body>
+        <button type="submit" class="btn">Register</button>
+      </form>
+
+      <p>Already have an account? <a href="../login/login.html">Login here</a>.</p>
+    </main>
+
+    <footer id="main-footer"></footer>
+
+    <!-- Password toggle script -->
+    <script>
+      document.getElementById('toggle-password')?.addEventListener('change', (e) => {
+        const passwordInput = document.getElementById('register-password');
+        passwordInput.type = e.target.checked ? 'text' : 'password';
+      });
+    </script>
+  </body>
 </html>

@@ -1,58 +1,26 @@
 // src/js/main.js
 import { loadHeaderFooter } from "./utils.mjs";
-import { updateAuthLinks } from "./auth.mjs";
+import { updateAuthLinks, requireAuth, setupAuthPage } from "./auth.mjs";
 
-// single app init that runs once per page
-async function initApp() {
-  try {
-    // 1) Load header/footer partials into DOM
-    await loadHeaderFooter();
+document.addEventListener("DOMContentLoaded", async () => {
+  // 1️⃣ Load header and footer everywhere
+  await loadHeaderFooter();
 
-    // 2) After header is injected, update auth links and year in footer
-    try {
-      updateAuthLinks();
-    } catch (err) {
-      console.warn("updateAuthLinks failed:", err);
-    }
+  // 2️⃣ Always update header links
+  updateAuthLinks();
 
-    // set year (footer)
-    const yearEl = document.getElementById("year");
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  const path = window.location.pathname;
 
-    // 3) Page specific bootstrapping
-    const path = window.location.pathname;
-    // for example: /recipes.html, /grocery.html etc
-    if (path.includes("recipes.html")) {
-      // lazy import recipe module only if needed
-      import("./recipe.mjs").then((m) => {
-        if (m.loadRecipes) m.loadRecipes();
-      });
-    } else if (path.includes("grocery.html")) {
-      import("./grocery.mjs").then((m) => {
-        if (m.loadGroceries) m.loadGroceries();
-      });
-    } else if (path.includes("planner.html")) {
-      import("./planner.mjs").then((m) => {
-        if (m.initPlanner) m.initPlanner();
-      });
-    } else if (path.includes("login.html") || path.includes("register.html")) {
-      // auth pages might have their own module
-      import("./auth.mjs").then((m) => {
-        if (m.setupAuthPage) m.setupAuthPage();
-      });
-    }
-  } catch (err) {
-    console.error("App init failed:", err);
-    const root = document.querySelector("main") || document.body;
-    if (root) {
-      const msg = document.createElement("div");
-      msg.className = "alert";
-      msg.textContent =
-        "Failed to load header/footer. See console for details.";
-      root.prepend(msg);
-    }
+  // 3️⃣ Protect private pages (but NOT login/register)
+  const protectedPages = ["planner.html", "recipes.html", "grocery.html"];
+  const isProtected = protectedPages.some((p) => path.includes(p));
+
+  if (isProtected) {
+    requireAuth(); // if not logged in, go to login page
   }
-}
 
-// run once DOM is ready
-document.addEventListener("DOMContentLoaded", initApp);
+  // 4️⃣ Initialize login/register form logic
+  if (path.includes("login.html") || path.includes("register.html")) {
+    setupAuthPage();
+  }
+});

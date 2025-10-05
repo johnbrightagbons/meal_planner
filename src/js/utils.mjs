@@ -1,66 +1,36 @@
-// Import auth helper (from auth.mjs)
-import { updateAuthLinks } from "./auth.mjs";
-// Query selector shortcut
-export function qs(selector, parent = document) {
-  return parent.querySelector(selector);
+// src/js/utils.mjs
+
+export function qs(selector) {
+  return document.querySelector(selector);
 }
 
-// Fetch HTML partials
-async function loadTemplate(path) {
-  const response = await fetch(path);
-  if (!response.ok) throw new Error(`Failed to load: ${path}`);
-  return await response.text();
-}
-
-// Insert template into DOM
-export function renderWithTemplate(template, parent, data = {}, callback) {
-  parent.innerHTML = template;
-  if (callback) callback(data);
-}
-
-// Load Header and Footer
 export async function loadHeaderFooter() {
-  const header = await loadTemplate("/src/public/partials/header.html");
-  const footer = await loadTemplate("/src/public/partials/footer.html");
+  const header = document.getElementById("main-header");
+  const footer = document.getElementById("main-footer");
 
-  renderWithTemplate(header, qs("#main-header"));
-  renderWithTemplate(footer, qs("#main-footer"), null, () => {
-    const year = qs("#year");
-    if (year) year.textContent = new Date().getFullYear();
-  });
-
-  function updateAuthLinks() {
-    const authLinks = document.querySelector("#authLinks");
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-
-    if (!authLinks) return;
-
-    if (user) {
-      authLinks.innerHTML = `
-      <span>👋 Hello, ${user.name}</span>
-      <button id="logoutBtn" class="btn btn-small">Logout</button>
+  if (header) {
+    header.innerHTML = `
+      <nav class="navbar">
+        <div class="logo">
+          <a href="/index.html">Blu<span class="highlight">Meal</span></a>
+        </div>
+        <ul class="nav-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/planner.html">Planner</a></li>
+          <li><a href="/recipes.html">Recipes</a></li>
+          <li><a href="/grocery.html">Grocery</a></li>
+          <a href="/register.html">Register</a>
+          <li><a href="/login.html">Login</a></li>
+        </ul>
+      </nav>
     `;
-
-      // Attach logout behavior
-      import("./logout.mjs").then((module) => {
-        module.setupLogout();
-      });
-    } else {
-      authLinks.innerHTML = `
-      <a href="login.html">Login</a> | <a href="register.html">Register</a>
-    `;
-    }
   }
-}
 
-/**
- * Render HTML into a container
- * @param {string} selector - target element (e.g., '#recipes-container')
- * @param {string} template - HTML string to inject
- */
-export function renderTemplate(selector, template) {
-  const container = document.querySelector(selector);
-  if (container) {
-    container.innerHTML = template;
+  if (footer) {
+    footer.innerHTML = `
+      <footer>
+        <p>&copy; ${new Date().getFullYear()} Blu Meal Planner. All rights reserved.</p>
+      </footer>
+    `;
   }
 }

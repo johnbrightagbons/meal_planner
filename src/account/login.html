@@ -1,36 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | Blu Meal Planner</title>
-  <link rel="stylesheet" href="/src/css/styles.css">
-   <script type="module" src="/src/js/login.mjs"></script>
-</head>
-<body>
-  <!-- ================= Header ================= -->
-  <header id="main-header"></header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login | Blu Meal Planner</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/auth.mjs"></script>
+  </head>
+  <body>
+    <header id="main-header"></header>
 
-  <!-- ================= Main Content ================= -->
-  <main class="auth-container">
-    <h1>🔑 Login</h1>
-    <form id="loginForm" class="auth-form">
-      <label>Email</label>
-      <input type="email" name="email" placeholder="Enter your email" required>
+    <main class="auth-page">
+      <h1>Login</h1>
+      <form id="login-form" class="auth-form">
+        <label>Email</label>
+        <input type="email" id="login-email" required />
 
-      <label>Password</label>
-      <input type="password" name="password" placeholder="Enter your password" required>
+        <label>Password</label>
+        <input type="password" id="login-password" required />
 
-      <button type="submit" class="btn">Login</button>
-    </form>
+        <button type="submit" class="btn">Login</button>
+      </form>
 
-    <p class="switch-link">Don't have an account? <a href="register.html">Register here</a></p>
-  </main>
+      <p>Don't have an account? <a href="../register/register.html">Register here</a>.</p>
+    </main>
 
-  <!-- ================= Footer ================= -->
-  <footer id="main-footer"></footer>
-
- 
- 
-</body>
+    <footer id="main-footer"></footer>
+  </body>
 </html>
