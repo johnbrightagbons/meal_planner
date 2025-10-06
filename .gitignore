@@ -1,3 +1,7 @@
-node_modules
-dist
+# Ignore node_modules
+node_modules/
+
+# Ignore dist folder
+dist/
+
 .env
