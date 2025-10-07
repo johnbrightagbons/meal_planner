@@ -14,7 +14,7 @@ export function isLoggedIn() {
 export function requireAuth() {
   if (!isLoggedIn()) {
     alert("⚠️ You must log in to access this page.");
-    window.location.href = "/account/login.html";
+    window.location.href = "/login.html";
     throw new Error("Not logged in");
   }
 }
@@ -64,13 +64,13 @@ export function updateAuthLinks() {
       logoutBtn.addEventListener("click", () => {
         localStorage.removeItem("currentUser");
         alert("Logged out successfully.");
-        window.location.href = "/src/account/login.html";
+        window.location.href = "/login.html";
       });
     }
   } else {
     authLinks.innerHTML = `
-      <a href="/src/account/login.html">Login</a> |
-      <a href="/src/account/register.html">Register</a>
+      <a href="/src/login.html">Login</a> |
+      <a href="/sr/register.html">Register</a>
     `;
   }
 }
