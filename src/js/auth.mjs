@@ -69,7 +69,7 @@ export function updateAuthLinks() {
     }
   } else {
     authLinks.innerHTML = `
-      <a href="/src/login.html">Login</a> |
+      <a href="/login.html">Login</a> |
       <a href="/register.html">Register</a>
     `;
   }
@@ -90,7 +90,7 @@ export function setupAuthPage() {
       try {
         loginUser(email, password);
         alert("✅ Login successful!");
-        window.location.href = "/src/index.html";
+        window.location.href = "/index.html";
       } catch (err) {
         alert(err.message);
       }
@@ -108,7 +108,7 @@ export function setupAuthPage() {
       try {
         registerUser(name, email, password);
         alert("🎉 Account created successfully!");
-        window.location.href = "/src/index.html";
+        window.location.href = "/index.html";
       } catch (err) {
         alert(err.message);
       }
