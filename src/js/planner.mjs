@@ -6,7 +6,7 @@ import { requireAuth, updateAuthLinks } from "./auth.mjs";
 requireAuth();
 updateAuthLinks();
 
-// --- Global state (load planner data from localStorage) ---
+// --- Global state ---
 let plannerData = JSON.parse(localStorage.getItem("planner")) || {
   Monday: [],
   Tuesday: [],
@@ -17,9 +17,25 @@ let plannerData = JSON.parse(localStorage.getItem("planner")) || {
   Sunday: [],
 };
 
-// --- Initialize planner when DOM is ready ---
+let groceryList = JSON.parse(localStorage.getItem("groceryList")) || [];
+
+// --- Fetch ingredients from API ---
+async function fetchIngredients(mealName) {
+  try {
+    const response = await fetch(
+      `https://api.example.com/recipes?search=${encodeURIComponent(mealName)}`
+    );
+    const data = await response.json();
+    return data.ingredients || [];
+  } catch (err) {
+    console.error("Failed to fetch ingredients:", err);
+    return [];
+  }
+}
+
+// --- Initialize planner ---
 document.addEventListener("DOMContentLoaded", async () => {
-  requireAuth(); //  Protect page
+  requireAuth();
   await loadHeaderFooter();
   loadPlanner();
 });
@@ -38,6 +54,7 @@ export function loadPlanner() {
         <div class="planner-day">
           <h3>${day}</h3>
           <ul id="${day}-meals">
+            ${plannerData[day].length === 0 ? "<li>No meals planned</li>" : ""}
             ${plannerData[day]
               .map(
                 (meal) =>
@@ -63,26 +80,40 @@ export function loadPlanner() {
 function attachPlannerEvents() {
   // Add meals
   document.querySelectorAll(".add-meal").forEach((btn) => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
       const day = btn.dataset.day;
       const input = qs(`#input-${day}`);
       const meal = input.value.trim();
 
-      if (meal) {
+      if (meal && !plannerData[day].includes(meal)) {
         plannerData[day].push(meal);
         localStorage.setItem("planner", JSON.stringify(plannerData));
-        notify(` ${meal} added to ${day}`);
+
+        const ingredients = await fetchIngredients(meal);
+        groceryList.push(...ingredients);
+        groceryList = [...new Set(groceryList)];
+        localStorage.setItem("groceryList", JSON.stringify(groceryList));
+
+        notify(`${meal} added to ${day}`);
+        input.value = "";
         loadPlanner();
+      } else {
+        notify(`⚠️ ${meal} is already added to ${day}`);
       }
     });
   });
 
   // Remove meals
   document.querySelectorAll(".remove-meal").forEach((btn) => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
       const { day, meal } = btn.dataset;
       plannerData[day] = plannerData[day].filter((m) => m !== meal);
       localStorage.setItem("planner", JSON.stringify(plannerData));
+
+      const ingredients = await fetchIngredients(meal);
+      groceryList = groceryList.filter((item) => !ingredients.includes(item));
+      localStorage.setItem("groceryList", JSON.stringify(groceryList));
+
       notify(`❌ ${meal} removed from ${day}`);
       loadPlanner();
     });
