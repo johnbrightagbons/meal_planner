@@ -1,3 +1,8 @@
+// ==========================
+// src/js/auth.mjs
+// Handles login, register, logout, and route protection
+// ==========================
+
 import { qs } from "./utils.mjs";
 
 // --- Check if a user is logged in ---
@@ -8,9 +13,10 @@ export function isLoggedIn() {
 // --- Protect private pages (redirect if not logged in) ---
 export function requireAuth() {
   if (!isLoggedIn()) {
-    const currentPath = window.location.pathname;
+    const currentPath = window.location.pathname.replace("/dist", "");
+    const redirectUrl = `/login.html?redirect=${encodeURIComponent(currentPath)}`;
     alert("⚠️ You must log in to access this page.");
-    window.location.href = `/login.html?redirect=${encodeURIComponent(currentPath)}`;
+    window.location.href = redirectUrl;
     throw new Error("Not logged in");
   }
 }
@@ -40,7 +46,7 @@ export function registerUser(name, email, password) {
   localStorage.setItem("currentUser", JSON.stringify(newUser));
 }
 
-// --- Update header auth links ---
+// --- Update header auth links (Login/Register or Welcome + Logout) ---
 export function updateAuthLinks() {
   const authLinks = qs("#authLinks");
   if (!authLinks) return;
@@ -59,7 +65,7 @@ export function updateAuthLinks() {
       logoutBtn.addEventListener("click", () => {
         localStorage.removeItem("currentUser");
         alert("Logged out successfully.");
-        window.location.href = "/login.html";
+        window.location.href = "login.html";
       });
     }
   } else {
@@ -70,13 +76,16 @@ export function updateAuthLinks() {
   }
 }
 
-// --- Setup login & register page logic ---
+// --- Handle login & register page logic ---
 export function setupAuthPage() {
   const loginForm = qs("#loginForm");
   const registerForm = qs("#registerForm");
+
+  // Get redirect target if available
   const params = new URLSearchParams(window.location.search);
   const redirectPath = params.get("redirect") || "/index.html";
 
+  // LOGIN FORM
   if (loginForm) {
     loginForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -84,15 +93,16 @@ export function setupAuthPage() {
       const password = loginForm.password.value.trim();
 
       try {
-        const user = loginUser(email, password);
-        alert(`✅ Welcome, ${user.name}`);
-        window.location.href = redirectPath;
+        loginUser(email, password);
+        alert("✅ Login successful!");
+        window.location.href = redirectPath; // go back to original page
       } catch (err) {
         alert(err.message);
       }
     });
   }
 
+  // REGISTER FORM
   if (registerForm) {
     registerForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -103,17 +113,11 @@ export function setupAuthPage() {
       try {
         registerUser(name, email, password);
         alert("🎉 Account created successfully!");
-        window.location.href = redirectPath;
+        // After register, send to login with redirect to previous page
+        window.location.href = `/login.html?redirect=${encodeURIComponent(redirectPath)}`;
       } catch (err) {
         alert(err.message);
       }
     });
-
-    document
-      .getElementById("toggle-password")
-      ?.addEventListener("change", (e) => {
-        const passwordInput = document.getElementById("register-password");
-        passwordInput.type = e.target.checked ? "text" : "password";
-      });
   }
 }
