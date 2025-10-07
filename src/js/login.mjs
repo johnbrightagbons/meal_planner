@@ -1,3 +1,6 @@
+import { setupAuthPage } from "./auth.mjs";
+setupAuthPage();
+
 const loginForm = qs("#loginForm");
 const params = new URLSearchParams(window.location.search);
 const redirectPath = params.get("redirect") || "/index.html";

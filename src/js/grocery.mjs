@@ -1,6 +1,9 @@
 // src/js/grocery.mjs
 import { qs, loadHeaderFooter } from "./utils.mjs";
-import { requireAuth } from "./auth.mjs";
+import { requireAuth, updateAuthLinks } from "./auth.mjs";
+
+requireAuth();
+updateAuthLinks();
 
 document.addEventListener("DOMContentLoaded", async () => {
   requireAuth(); // protect groceries

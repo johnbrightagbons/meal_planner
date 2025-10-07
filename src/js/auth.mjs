@@ -1,8 +1,3 @@
-// ==========================
-// src/js/auth.mjs
-// Handles login, register, logout, and route protection
-// ==========================
-
 import { qs } from "./utils.mjs";
 
 // --- Check if a user is logged in ---
@@ -82,7 +77,6 @@ export function setupAuthPage() {
   const params = new URLSearchParams(window.location.search);
   const redirectPath = params.get("redirect") || "/index.html";
 
-  // LOGIN FORM
   if (loginForm) {
     loginForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -99,7 +93,6 @@ export function setupAuthPage() {
     });
   }
 
-  // REGISTER FORM
   if (registerForm) {
     registerForm.addEventListener("submit", (e) => {
       e.preventDefault();

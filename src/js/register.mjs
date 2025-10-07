@@ -1,8 +1,9 @@
 import { loadHeaderFooter } from "./utils.mjs";
 import { registerUser } from "./auth.mjs";
+import { setupAuthPage } from "./auth.mjs";
 
 loadHeaderFooter();
-
+setupAuthPage();
 document.querySelector("#registerForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const name = e.target.name.value.trim();

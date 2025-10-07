@@ -1,7 +1,10 @@
 // src/js/planner.mjs
 import { qs, loadHeaderFooter } from "./utils.mjs";
-import { requireAuth } from "./auth.mjs";
 import { notify } from "./notification.mjs";
+import { requireAuth, updateAuthLinks } from "./auth.mjs";
+
+requireAuth();
+updateAuthLinks();
 
 // --- Global state (load planner data from localStorage) ---
 let plannerData = JSON.parse(localStorage.getItem("planner")) || {
