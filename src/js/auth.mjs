@@ -70,7 +70,7 @@ export function updateAuthLinks() {
   } else {
     authLinks.innerHTML = `
       <a href="/src/login.html">Login</a> |
-      <a href="/sr/register.html">Register</a>
+      <a href="/register.html">Register</a>
     `;
   }
 }
