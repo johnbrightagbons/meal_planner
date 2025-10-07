@@ -13,8 +13,9 @@ export function isLoggedIn() {
 // --- Protect private pages (redirect if not logged in) ---
 export function requireAuth() {
   if (!isLoggedIn()) {
+    const currentPath = window.location.pathname;
     alert("⚠️ You must log in to access this page.");
-    window.location.href = "/login.html";
+    window.location.href = `/login.html?redirect=${encodeURIComponent(currentPath)}`;
     throw new Error("Not logged in");
   }
 }
@@ -44,7 +45,7 @@ export function registerUser(name, email, password) {
   localStorage.setItem("currentUser", JSON.stringify(newUser));
 }
 
-// --- Update header auth links (Login/Register or Welcome + Logout) ---
+// --- Update header auth links ---
 export function updateAuthLinks() {
   const authLinks = qs("#authLinks");
   if (!authLinks) return;
@@ -58,7 +59,6 @@ export function updateAuthLinks() {
       <button id="logoutBtn" class="btn btn-small">Logout</button>
     `;
 
-    // Attach logout handler
     const logoutBtn = qs("#logoutBtn");
     if (logoutBtn) {
       logoutBtn.addEventListener("click", () => {
@@ -75,10 +75,12 @@ export function updateAuthLinks() {
   }
 }
 
-// --- Handle login & register page form logic ---
+// --- Setup login & register page logic ---
 export function setupAuthPage() {
   const loginForm = qs("#loginForm");
   const registerForm = qs("#registerForm");
+  const params = new URLSearchParams(window.location.search);
+  const redirectPath = params.get("redirect") || "/index.html";
 
   // LOGIN FORM
   if (loginForm) {
@@ -88,9 +90,9 @@ export function setupAuthPage() {
       const password = loginForm.password.value.trim();
 
       try {
-        loginUser(email, password);
-        alert("✅ Login successful!");
-        window.location.href = "/index.html";
+        const user = loginUser(email, password);
+        alert(`✅ Welcome, ${user.name}`);
+        window.location.href = redirectPath;
       } catch (err) {
         alert(err.message);
       }
@@ -108,7 +110,7 @@ export function setupAuthPage() {
       try {
         registerUser(name, email, password);
         alert("🎉 Account created successfully!");
-        window.location.href = "/index.html";
+        window.location.href = redirectPath;
       } catch (err) {
         alert(err.message);
       }
