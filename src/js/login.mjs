@@ -1,15 +1,21 @@
-import { setupAuthPage } from "./auth.mjs";
-setupAuthPage();
+import { loginUser } from "./auth.mjs";
+import { qs } from "./utils.mjs";
 
-const loginForm = qs("#loginForm");
+const loginForm = qs("#login-form");
 const params = new URLSearchParams(window.location.search);
 const redirectPath = params.get("redirect") || "/index.html";
+const message = params.get("message");
+
+if (message) alert(message);
 
 if (loginForm) {
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const email = loginForm.email.value.trim();
-    const password = loginForm.password.value.trim();
+    const emailInput = document.getElementById("login-email");
+    const passwordInput = document.getElementById("login-password");
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
 
     try {
       loginUser(email, password);
