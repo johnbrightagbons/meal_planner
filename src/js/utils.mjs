@@ -3,13 +3,13 @@ export async function loadHeaderFooter() {
   const footerElement = document.getElementById("main-footer");
 
   if (headerElement) {
-    const headerResponse = await fetch("/public/partials/header.html");
+    const headerResponse = await fetch("/header.html");
     const headerHTML = await headerResponse.text();
     headerElement.innerHTML = headerHTML;
   }
 
   if (footerElement) {
-    const footerResponse = await fetch("/public/partials/footer.html");
+    const footerResponse = await fetch("/footer.html");
     const footerHTML = await footerResponse.text();
     footerElement.innerHTML = footerHTML;
   }
