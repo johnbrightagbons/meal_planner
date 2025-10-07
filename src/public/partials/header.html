@@ -1,26 +1,16 @@
-<!-- public/partials/header.html -->
 <header class="main-header">
-  <div class="header-inner">
-    <div class="logo">
-      <a href="/index.html">Blu <span class="highlight">Meal</span> Planner</a>
-    </div>
+  <div class="logo">
+    <a href="/src/index.html">Blu <span class="highlight">Meal</span> Planner</a>
+  </div>
 
-    <nav class="main-nav">
-      <a href="/src/index.html">Home</a>
-      <a href="/src/recipes/recipes.html">Recipes</a>
-      <a href="/src/grocery/grocery.html">Grocery</a>
-      <a href="/src/planner/planner.html">Planner</a>
-      <a href="/src/account/login.html">Login</a>
+  <ul class="nav-links">
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="./recipes.html">Recipes</a></li>
+    <li><a href="./grocery.html">Grocery</a></li>
+    <li><a href="./planner.html">Planner</a></li>
+  </ul>
 
-    </nav>
-
-    <div id="authLinks" class="auth-links">
-      <!-- updateAuthLinks() will fill this -->
-    </div>
-
-    <form id="search-form" class="search-form" action="#" onsubmit="return false;">
-      <input id="searchInput" name="q" type="search" placeholder="Search recipes..." />
-      <button type="submit">Search</button>
-    </form>
+  <div id="authLinks">
+    <!-- updateAuthLinks() will fill this -->
   </div>
 </header>
