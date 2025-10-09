@@ -723,6 +723,57 @@ footer p {
 
 
 
+/* ============================
+   Styling for Dropdown and Button
+============================ */
+/* Modal container */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  text-align: center;
+}
+
+/* Dropdown styling */
+.modal select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  width: 100%;
+  max-width: 250px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s;
+}
+
+.modal select:focus {
+  border-color: #0078d4;
+  outline: none;
+}
+
+/* Confirm button styling */
+.modal button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal button:hover {
+  background-color: #005fa3;
+}
+
 
 
 

@@ -1,8 +1,10 @@
 // src/js/planner.mjs
+
 import { qs, loadHeaderFooter } from "./utils.mjs";
 import { notify } from "./notification.mjs";
 import { requireAuth, updateAuthLinks } from "./auth.mjs";
 
+// Enforce authentication and update navigation links
 requireAuth();
 updateAuthLinks();
 
@@ -20,11 +22,11 @@ let plannerData = JSON.parse(localStorage.getItem("planner")) || {
 let groceryList = JSON.parse(localStorage.getItem("groceryList")) || [];
 
 // --- Spoonacular API: Fetch ingredients for a meal ---
-async function fetchIngredients(mealName) {
+export async function fetchIngredients(mealName) {
   const apiKey = "4bdc100780064dc5981500d2602e59eb";
 
   try {
-    // Step 1: Search for recipe
+    // Step 1: Search for recipe by name
     const searchRes = await fetch(
       `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(mealName)}&number=1&apiKey=${apiKey}`
     );
@@ -36,12 +38,13 @@ async function fetchIngredients(mealName) {
       return [];
     }
 
-    // Step 2: Get ingredients from recipe ID
+    // Step 2: Fetch ingredients using recipe ID
     const ingredientsRes = await fetch(
       `https://api.spoonacular.com/recipes/${recipe.id}/ingredientWidget.json?apiKey=${apiKey}`
     );
     const ingredientsData = await ingredientsRes.json();
 
+    // Return array of ingredient names
     return ingredientsData.ingredients?.map((i) => i.name) || [];
   } catch (err) {
     console.error("Failed to fetch ingredients:", err);
@@ -50,7 +53,7 @@ async function fetchIngredients(mealName) {
   }
 }
 
-// --- Initialize planner ---
+// --- Initialize planner on page load ---
 document.addEventListener("DOMContentLoaded", async () => {
   requireAuth();
   await loadHeaderFooter();
@@ -60,6 +63,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 // --- Load planner UI ---
 export function loadPlanner() {
   const container = qs("#planner-container");
+
+  if (!container) {
+    console.warn("planner-container not found in DOM");
+    return;
+  }
 
   container.innerHTML = `
     <h2>Weekly Meal Planner</h2>
@@ -96,7 +104,7 @@ export function loadPlanner() {
 
 // --- Attach events for add/remove buttons ---
 function attachPlannerEvents() {
-  // Add meals
+  // Add meals to planner
   document.querySelectorAll(".add-meal").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const day = btn.dataset.day;
@@ -109,33 +117,38 @@ function attachPlannerEvents() {
         return notify(`⚠️ ${meal} is already added to ${day}`, "warning");
       }
 
+      // Save meal to planner
       plannerData[day].push(meal);
       localStorage.setItem("planner", JSON.stringify(plannerData));
 
+      // Fetch ingredients and update grocery list
       const ingredients = await fetchIngredients(meal);
       groceryList.push(...ingredients);
-      groceryList = [...new Set(groceryList)];
+      groceryList = [...new Set(groceryList)]; // Remove duplicates
       localStorage.setItem("groceryList", JSON.stringify(groceryList));
 
       notify(`✅ ${meal} added to ${day}`, "success");
       input.value = "";
-      loadPlanner();
+      loadPlanner(); // Refresh UI
     });
   });
 
-  // Remove meals
+  // Remove meals from planner
   document.querySelectorAll(".remove-meal").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const { day, meal } = btn.dataset;
+
+      // Remove meal from planner
       plannerData[day] = plannerData[day].filter((m) => m !== meal);
       localStorage.setItem("planner", JSON.stringify(plannerData));
 
+      // Remove ingredients from grocery list
       const ingredients = await fetchIngredients(meal);
       groceryList = groceryList.filter((item) => !ingredients.includes(item));
       localStorage.setItem("groceryList", JSON.stringify(groceryList));
 
       notify(`❌ ${meal} removed from ${day}`, "info");
-      loadPlanner();
+      loadPlanner(); // Refresh UI
     });
   });
 }
